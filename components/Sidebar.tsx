@@ -70,7 +70,7 @@ function DesktopSidebar() {
 }
 
 export function MobileSidebar() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const activeRoute =
     routes.find(
