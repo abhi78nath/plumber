@@ -61,7 +61,7 @@ function CreateWorkflowDialog({ triggerText }: { triggerText?: string }) {
       console.log("CLIENT: onSubmit raw values:", values);
       const payload = {
         name: values.name,
-        description: values.description || "", // Ensure no undefined
+        description: values.description || null,
       };
       console.log("CLIENT: onSubmit payload being sent:", payload);
       toast.loading("Creating workflow...", { id: "create-workflow" });
@@ -115,7 +115,11 @@ function CreateWorkflowDialog({ triggerText }: { triggerText?: string }) {
                       <p className="text-xs text-primary">(optional)</p>
                     </FormLabel>
                     <FormControl>
-                      <Textarea className="resize-none" {...field} />
+                      <Textarea
+                        className="resize-none"
+                        {...field}
+                        value={field.value ?? ""}
+                      />
                     </FormControl>
                     <FormDescription>
                       Provide a brief description of what your workflow does.
