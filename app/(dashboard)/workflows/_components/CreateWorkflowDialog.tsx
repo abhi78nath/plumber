@@ -3,9 +3,12 @@
 import CustomDialogHeader from "@/components/CustomDialogHeader";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { createWorkflowSchema } from "@/schema/workflow";
-import { Layers2Icon } from "lucide-react";
-import React, { useState } from "react";
+import {
+  createWorkflowSchema,
+  createWorkflowSchemaType,
+} from "@/schema/workflow";
+import { Layers2Icon, Loader2 } from "lucide-react";
+import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,16 +23,54 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useMutation } from "@tanstack/react-query";
+import { CreateWorkflow } from "@/actions/workflows/createWorkflow";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 function CreateWorkflowDialog({ triggerText }: { triggerText?: string }) {
   const [open, setOpen] = useState(false);
 
-  const form = useForm<z.infer<typeof createWorkflowSchema>>({
+  const form = useForm<createWorkflowSchemaType>({
     resolver: zodResolver(createWorkflowSchema),
     defaultValues: {},
   });
+
+  const router = useRouter();
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["create-workflow"],
+    mutationFn: async (vars: createWorkflowSchemaType) => {
+      console.log("CLIENT: mutationFn invoked with vars:", vars);
+      return await CreateWorkflow(vars);
+    },
+    onSuccess: (result) => {
+      console.log("CLIENT: mutation SUCCESS, result:", result);
+      toast.success("Workflow created", { id: "create-workflow" });
+      if (result) {
+        router.push(`/workflow/editor/${result}`);
+      }
+    },
+    onError: (error) => {
+      console.error("CLIENT: mutation ERROR:", error);
+      toast.error("Failed to create workflow", { id: "create-workflow" });
+    },
+  });
+
+  const onSubmit = useCallback(
+    (values: createWorkflowSchemaType) => {
+      console.log("CLIENT: onSubmit raw values:", values);
+      const payload = {
+        name: values.name,
+        description: values.description || "", // Ensure no undefined
+      };
+      console.log("CLIENT: onSubmit payload being sent:", payload);
+      toast.loading("Creating workflow...", { id: "create-workflow" });
+      mutate(payload);
+    },
+    [mutate]
+  );
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen} >
       <DialogTrigger asChild>
         <Button>{triggerText ?? "Create workflow"}</Button>
       </DialogTrigger>
@@ -41,7 +82,10 @@ function CreateWorkflowDialog({ triggerText }: { triggerText?: string }) {
         />
         <div className="p-6">
           <Form {...form}>
-            <form className="space-y-8 w-full">
+            <form
+              className="space-y-8 w-full"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
               <FormField
                 control={form.control}
                 name="name"
@@ -82,14 +126,15 @@ function CreateWorkflowDialog({ triggerText }: { triggerText?: string }) {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
-                Proceed
+              <Button type="submit" className="w-full" disabled={isPending}>
+                {!isPending && "Proceed"}
+                {isPending && <Loader2 className="animate-spin" />}
               </Button>
             </form>
           </Form>
         </div>
       </DialogContent>
-    </Dialog>
+    </Dialog >
   );
 }
 

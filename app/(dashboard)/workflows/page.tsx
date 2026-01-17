@@ -1,4 +1,4 @@
-import { GetWorkflowsForUser } from "@/actions/getWorkflowsForUser";
+import { GetWorkflowsForUser } from "@/actions/workflows/getWorkflowsForUser";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import waitFor from "@/lib/helper/waitFor";
@@ -68,6 +68,6 @@ const UserWorkflows = async () => {
       </div>
     );
   }
-  return <div></div>;
+  return <pre>{JSON.stringify(workflows, null, 4)}</pre>;
 };
 export default page;
