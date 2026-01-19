@@ -1,7 +1,7 @@
 "use client";
 
 import { Workflow } from '@prisma/client'
-import { addEdge, Background, BackgroundVariant, Connection, Controls, Edge, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react'
+import { addEdge, Background, BackgroundVariant, Connection, Controls, Edge, getOutgoers, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react'
 import React, { useCallback, useEffect } from 'react'
 import "@xyflow/react/dist/style.css";
 import { CreateFlowNode } from '@/lib/workflow/createFlowNode';
@@ -84,12 +84,12 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
     const isValidConnection = useCallback((connection: Edge | Connection) => {
         // Connection rules
 
-        // No self connection
+        // [1/3] No self connection
         if (connection.source === connection.target) {
             return false;
         }
 
-        //  same taskpaam type connection only; no type mismatch
+        // [2/3] same taskpaam type connection only; no type mismatch
 
         const source = nodes.find((node) => node.id === connection.source);
         const target = nodes.find((node) => node.id === connection.target);
@@ -108,7 +108,24 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
             console.error("Invalid connection: type mismatch");
             return false;
         }
-        return true;
+
+        // [3/3] No cycle connection
+
+        const hasCycle = (node: AppNode, visited = new Set()) => {
+            if (visited.has(node.id)) return false;
+
+            visited.add(node.id);
+
+            for (const outgoer of getOutgoers(node, nodes, edges)) {
+                if (outgoer.id === connection.source) {
+                    return true;
+                }
+                if (hasCycle(outgoer, visited)) return true;
+            }
+        }
+
+        const detectedCycle = hasCycle(target);
+        return !detectedCycle;
     }, [nodes])
 
     return (
