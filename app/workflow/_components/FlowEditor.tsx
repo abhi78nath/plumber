@@ -56,7 +56,7 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
 
         const newNode = CreateFlowNode(taskType as TaskType, position);
         setNodes((nodes) => nodes.concat(newNode))
-    }, [])
+    }, [screenToFlowPosition, setNodes])
 
 
     const onConnect = useCallback((connection: Connection) => {
@@ -76,7 +76,7 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
         })
 
         console.log("@UPDATED", node.id)
-    }, [setEdges, updateNodeData]);
+    }, [setEdges, updateNodeData, nodes]);
 
     console.log("@NODES", nodes);
 
