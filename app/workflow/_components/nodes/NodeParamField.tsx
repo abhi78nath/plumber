@@ -5,7 +5,7 @@ import { useReactFlow } from '@xyflow/react'
 import { AppNode } from '@/types/appNode'
 import BrowserInstanceParam from './param/BrowserInstanceParam'
 
-const NodeParamField = ({ param, nodeId }: { param: TaskParam, nodeId: string }) => {
+const NodeParamField = ({ param, nodeId, disabled }: { param: TaskParam, nodeId: string, disabled: boolean }) => {
     const { updateNodeData, getNode } = useReactFlow();
     const node = getNode(nodeId) as AppNode;
     const value = node?.data.inputs?.[param.name];
@@ -26,6 +26,7 @@ const NodeParamField = ({ param, nodeId }: { param: TaskParam, nodeId: string })
                     param={param}
                     value={value}
                     updateNodeParamValue={updateNodeParamValue}
+                    disabled={disabled}
                 />
             )
         case TaskParamType.BROWSER_INSTANCE:
