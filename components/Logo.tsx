@@ -5,7 +5,7 @@ import React from "react";
 
 function Logo({
   fontSize = "text-2xl",
-  iconSize = 20,
+  iconSize = 21,
 }: {
   fontSize?: string;
   iconSize?: number;
