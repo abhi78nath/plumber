@@ -82,7 +82,8 @@ export async function RunWorkFlow(form: {
         if (!execution) {
             throw new Error("workflow execution not created")
         }
-        return { success: true };
+
+        return { success: true, executionId: execution.id };
     } catch (error: any) {
         console.error("SERVER: Error running workflow:", error);
         throw new Error(error.message || "failed to run workflow");
