@@ -6,6 +6,9 @@ CREATE TABLE "Workflow" (
     "description" TEXT,
     "definition" TEXT NOT NULL,
     "status" TEXT NOT NULL,
+    "lastRunAt" DATETIME,
+    "lastRunId" TEXT,
+    "lastRunStatus" TEXT,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updateAt" DATETIME NOT NULL
 );
@@ -17,7 +20,7 @@ CREATE TABLE "WorkflowExecution" (
     "userId" TEXT NOT NULL,
     "trigger" TEXT NOT NULL,
     "status" TEXT NOT NULL,
-    "creatdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "startedAt" DATETIME,
     "completedAt" DATETIME,
     CONSTRAINT "WorkflowExecution_workflowId_fkey" FOREIGN KEY ("workflowId") REFERENCES "Workflow" ("id") ON DELETE CASCADE ON UPDATE CASCADE
@@ -35,7 +38,7 @@ CREATE TABLE "ExecutionPhase" (
     "completedAt" DATETIME,
     "inputs" TEXT,
     "outputs" TEXT,
-    "creditsComsumed" INTEGER,
+    "creditsConsumed" INTEGER,
     "workflowExecutionId" TEXT NOT NULL,
     CONSTRAINT "ExecutionPhase_workflowExecutionId_fkey" FOREIGN KEY ("workflowExecutionId") REFERENCES "WorkflowExecution" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );

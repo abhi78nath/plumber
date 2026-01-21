@@ -19,6 +19,10 @@ model Workflow {
   definition String
   status     String
 
+  lastRunAt     DateTime?
+  lastRunId     String?
+  lastRunStatus String?
+
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 
@@ -35,12 +39,15 @@ model WorkflowExecution {
   userId      String
   trigger     String
   status      String
-  createdAt    DateTime  @default(now())
+  createdAt   DateTime  @default(now())
   startedAt   DateTime?
   completedAt DateTime?
-  workflow    Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  creditsConsumed Int @default(0)
 
   phases ExecutionPhase[]
+
+  workflow Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
 }
 
 model ExecutionPhase {
