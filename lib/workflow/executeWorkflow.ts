@@ -11,6 +11,7 @@ import { ExecutorRegistry } from "./executor/registry";
 import { Environment, ExecutionEnvironment } from "@/types/executor";
 import { TaskParamType } from "@/types/task";
 import { Edge } from "@xyflow/react";
+import { Browser, Page } from "puppeteer";
 
 export async function ExecuteWorkflow(executionId: string) {
     const execution = await prisma.workflowExecution.findUnique({
@@ -129,7 +130,8 @@ async function executeWorkflowPhase(phase: ExecutionPhase, environment: Environm
         },
         data: {
             status: ExecutionPhaseStatus.RUNNING,
-            startedAt
+            startedAt,
+            inputs: JSON.stringify(environment.phases[node.id].inputs)
         }
     });
 
@@ -187,17 +189,17 @@ function setupEnvironmentForPhase(node: AppNode, environment: Environment, edges
             continue;
         }
 
-    //     // Get input value from outputs in the environment
-    //     const connectedEdge = edges.find((edge) => edge.target === node.id && edge.targetHandle === input.name);
+        //     // Get input value from outputs in the environment
+        //     const connectedEdge = edges.find((edge) => edge.target === node.id && edge.targetHandle === input.name);
 
-    //     if (!connectedEdge) {
-    //         console.error('Missing edge for input', input.name, 'node id:', node.id);
-    //         continue;
-    //     }
+        //     if (!connectedEdge) {
+        //         console.error('Missing edge for input', input.name, 'node id:', node.id);
+        //         continue;
+        //     }
 
-    //     const outputValue = environment.phases[connectedEdge.source].outputs[connectedEdge.sourceHandle!];
+        //     const outputValue = environment.phases[connectedEdge.source].outputs[connectedEdge.sourceHandle!];
 
-    //     environment.phases[node.id].inputs[input.name] = outputValue;
+        //     environment.phases[node.id].inputs[input.name] = outputValue;
     }
 }
 
@@ -205,20 +207,19 @@ function createExecutionEnvironment(
     node: AppNode,
     environment: Environment,
     // logCollector: LogCollector
-    ) 
-  {
+):ExecutionEnvironment<any> {
     return {
-      getInput: (name: string) => environment.phases[node.id]?.inputs[name],
-    //   setOutput: (name: string, value: string) => {
-    //     environment.phases[node.id].outputs[name] = value;
-    //   },
-  
-    //   getBrowser: () => environment.browser,
-    //   setBrowser: (browser: Browser) => (environment.browser = browser),
-  
-    //   getPage: () => environment.page,
-    //   setPage: (page: Page) => (environment.page = page),
-  
-    //   log: logCollector,
+        getInput: (name: string) => environment.phases[node.id]?.inputs[name],
+        //   setOutput: (name: string, value: string) => {
+        //     environment.phases[node.id].outputs[name] = value;
+        //   },
+
+          getBrowser: () => environment.browser,
+          setBrowser: (browser: Browser) => (environment.browser = browser),
+
+          getPage: () => environment.page,
+          setPage: (page: Page) => (environment.page = page),
+
+        //   log: logCollector,
     };
-  }
+}
