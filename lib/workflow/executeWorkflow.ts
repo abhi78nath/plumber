@@ -46,6 +46,7 @@ export async function ExecuteWorkflow(executionId: string) {
 
     await finalizeWorkflowExecution(executionId, execution.workflowId, executionFailed, creditsConsumed)
 
+    await cleanUpEnvironment(environment)
     revalidatePath("/workflows/runs")
 }
 
@@ -223,3 +224,15 @@ function createExecutionEnvironment(
         //   log: logCollector,
     };
 }
+
+async function cleanUpEnvironment(environment: Environment) {
+    if (environment.browser) {
+      if (process.env.NODE_ENV !== 'production') {
+        // close locally in dev
+        await environment.browser.close().catch((err) => console.error('Cannot close browser, reason:', err));
+      } else {
+        // disconnect to brightdata in prod
+        await environment.browser.disconnect().catch((err) => console.error('Cannot disconnect browser, reason:', err));
+      }
+    }
+  }
