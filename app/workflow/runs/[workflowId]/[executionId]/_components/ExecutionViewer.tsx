@@ -19,6 +19,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { Calendar1Icon, CalendarIcon, CircleDashedIcon, ClockIcon, CoinsIcon, Loader2Icon, LucideIcon, WorkflowIcon } from 'lucide-react';
 import React, { ReactNode, useEffect, useState } from 'react'
 import PhaseStatusBadge from './PhaseStatusBadge';
+import ReactCountUpWrapper from '@/components/ReactCountUpWrapper';
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>;
 
@@ -69,7 +70,12 @@ const ExecutionViewer = ({ execution: initialData }: { execution: ExecutionData 
                     <ExecutionLabel
                         icon={CircleDashedIcon}
                         label="Status"
-                        value={query.data?.status}
+                        value={
+                            <div className='font-semibold capitalize flex gap-2 items-center'>
+                                <PhaseStatusBadge status={query.data?.status as ExecutionPhaseStatus} />
+                                <span>{query.data?.status}</span>
+                            </div>
+                        }
                     />
                     <ExecutionLabel
                         icon={CalendarIcon}
@@ -88,7 +94,7 @@ const ExecutionViewer = ({ execution: initialData }: { execution: ExecutionData 
                     <ExecutionLabel
                         icon={CoinsIcon}
                         label="Credits Consumed"
-                        value={creditsConsumed}
+                        value={<ReactCountUpWrapper value={creditsConsumed} />}
                     />
 
                 </div>
