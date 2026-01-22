@@ -1,9 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the column `creatdAt` on the `WorkflowExecution` table. All the data in the column will be lost.
-
-*/
 -- RedefineTables
 PRAGMA defer_foreign_keys=ON;
 PRAGMA foreign_keys=OFF;
@@ -16,9 +10,11 @@ CREATE TABLE "new_WorkflowExecution" (
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "startedAt" DATETIME,
     "completedAt" DATETIME,
+    "definition" TEXT NOT NULL DEFAULT '{}',
+    "creditsConsumed" INTEGER NOT NULL DEFAULT 0,
     CONSTRAINT "WorkflowExecution_workflowId_fkey" FOREIGN KEY ("workflowId") REFERENCES "Workflow" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
-INSERT INTO "new_WorkflowExecution" ("completedAt", "id", "startedAt", "status", "trigger", "userId", "workflowId") SELECT "completedAt", "id", "startedAt", "status", "trigger", "userId", "workflowId" FROM "WorkflowExecution";
+INSERT INTO "new_WorkflowExecution" ("completedAt", "createdAt", "creditsConsumed", "id", "startedAt", "status", "trigger", "userId", "workflowId") SELECT "completedAt", "createdAt", "creditsConsumed", "id", "startedAt", "status", "trigger", "userId", "workflowId" FROM "WorkflowExecution";
 DROP TABLE "WorkflowExecution";
 ALTER TABLE "new_WorkflowExecution" RENAME TO "WorkflowExecution";
 PRAGMA foreign_keys=ON;
