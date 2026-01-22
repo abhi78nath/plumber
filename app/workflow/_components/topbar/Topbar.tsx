@@ -9,13 +9,14 @@ import SaveButton from './SaveButton';
 import ExecuteButton from './ExecuteButton';
 import NavigationTabs from './NavigationTabs';
 import PublishButton from './PublishButton';
+import UnpublishBtn from './UnpublishButton';
 
 interface Props {
     title: string;
     subTitle?: string;
     workflowId: string;
     hideButtons?: boolean;
-    isPublished?:boolean;
+    isPublished?: boolean;
 }
 const Topbar = ({ title, subTitle, workflowId, hideButtons = false, isPublished }: Props) => {
     const router = useRouter();
@@ -43,6 +44,7 @@ const Topbar = ({ title, subTitle, workflowId, hideButtons = false, isPublished 
                 {!hideButtons && (
                     <>
                         <ExecuteButton workflowId={workflowId} />
+                        {isPublished && <UnpublishBtn workflowId={workflowId} />}
                         {!isPublished && (
                             <>
 
