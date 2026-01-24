@@ -9,7 +9,10 @@ import React from 'react'
 const TaskMenu = () => {
     return (
         <aside className='w-[340px] min-w-[340px] max-w-[340px] border-r-2 border-separate h-full p-2 px-4 overflow-auto'>
-            <Accordion type='multiple' className='w-full' defaultValue={["extraction", "interactions", "timing"]}>
+            <Accordion type='multiple' className='w-full'
+                defaultValue={
+                    ["extraction", "interactions", "timing", "result-delivery"]
+                }>
                 <AccordionItem value='interactions'>
                     <AccordionTrigger className='font-bold'>
                         User Interactions
@@ -35,6 +38,14 @@ const TaskMenu = () => {
                     <AccordionContent className='flex flex-col gap-1'>
                         <TaskMenuButton taskType={TaskType.WAIT_FOR_ELEMENT} />
                         {/* can add another task called DELAY to slow things and watch behaiviour of webpage */}
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value='result-delivery'>
+                    <AccordionTrigger className='font-bold'>
+                        Result Delivery
+                    </AccordionTrigger>
+                    <AccordionContent className='flex flex-col gap-1'>
+                        <TaskMenuButton taskType={TaskType.DELIVER_VIA_WEBHOOK} />
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
