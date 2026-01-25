@@ -17,6 +17,7 @@ import ReactCountUpWrapper from '@/components/ReactCountUpWrapper';
 import { getCreditsUsageInPeriod } from '@/actions/analytics/getCreditsUsageInPeriod';
 import CreditUsageChart from './_components/CreditUsageChart';
 import CreditsPurchase from './_components/CreditsPurchase';
+import { GetUserPurchaseHistory } from '@/actions/billing/getPurchaseHistory';
 
 export default function BillingPage() {
   return (
@@ -26,12 +27,12 @@ export default function BillingPage() {
         <BalanceCard />
       </Suspense>
       <CreditsPurchase />
-      {/* <Suspense fallback={<Skeleton className="h-[300px] w-full" />}>
+      <Suspense fallback={<Skeleton className="h-[300px] w-full" />}>
         <CreditUsageCard />
       </Suspense>
       <Suspense fallback={<Skeleton className="h-[300px] w-full" />}>
         <TransactionHistoryCard />
-      </Suspense> */}
+      </Suspense>
     </div>
   );
 }
@@ -72,36 +73,36 @@ async function CreditUsageCard() {
   );
 }
 
-// async function TransactionHistoryCard() {
-//   const purchases = await getUserPurchaseHistory();
+async function TransactionHistoryCard() {
+  const purchases = await GetUserPurchaseHistory();
 
-//   return (
-//     <Card>
-//       <CardHeader>
-//         <CardTitle className="text-2xl font-bold flex items-center gap-2">
-//           <ArrowLeftRightIcon className="h-6 w-6 text-primary" />
-//           Transaction History
-//         </CardTitle>
-//         <CardDescription>View your transaction history and download invoices</CardDescription>
-//       </CardHeader>
-//       <CardContent className="space-y-4">
-//         {purchases.length === 0 && <p className="text-muted-foreground">No transactions yet</p>}
-//         {purchases.map((purchase) => (
-//           <div key={purchase.id} className="flex justify-between items-center py-3 border-b last:border-b-0">
-//             <div className="">
-//               <p className="font-medium">{formatDate(purchase.date)}</p>
-//               <p className="text-sm text-muted-foreground">{purchase.description}</p>
-//             </div>
-//             <div className="text-right">
-//               <p className="font-medium">{formatAmount(purchase.amount, purchase.currency)}</p>
-//               <InvoiceBtn id={purchase.id} />
-//             </div>
-//           </div>
-//         ))}
-//       </CardContent>
-//     </Card>
-//   );
-// }
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-2xl font-bold flex items-center gap-2">
+          <ArrowLeftRightIcon className="h-6 w-6 text-primary" />
+          Transaction History
+        </CardTitle>
+        <CardDescription>View your transaction history and download invoices</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {purchases.length === 0 && <p className="text-muted-foreground">No transactions yet</p>}
+        {purchases.map((purchase) => (
+          <div key={purchase.id} className="flex justify-between items-center py-3 border-b last:border-b-0">
+            <div className="">
+              <p className="font-medium">{formatDate(purchase.date)}</p>
+              <p className="text-sm text-muted-foreground">{purchase.description}</p>
+            </div>
+            <div className="text-right">
+              <p className="font-medium">{formatAmount(purchase.amount, purchase.currency)}</p>
+              {/* <InvoiceBtn id={purchase.id} /> */}
+            </div>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat('en-US', {
