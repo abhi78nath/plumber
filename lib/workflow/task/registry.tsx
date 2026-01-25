@@ -8,6 +8,7 @@ import { ClickElementTask } from "./ClickElementTask";
 import { WaitForElementTask } from "./WaitForElement";
 import { DeliverViaWebhookTask } from "./DeliverViaWebhookTask";
 import { ExtractDataWithAiTask } from "./ExtractDataWithAI";
+import { ReadPropertyFromJsonTask } from "./ReadPropertyFromJsonTask";
 
 type Registry = {
     [K in TaskType]: WorkflowTask & { type: K };
@@ -20,5 +21,6 @@ export const TaskRegistry: Registry = {
     CLICK_ELEMENT: ClickElementTask,
     WAIT_FOR_ELEMENT: WaitForElementTask,
     DELIVER_VIA_WEBHOOK: DeliverViaWebhookTask,
-    EXTRACT_DATA_WITH_AI: ExtractDataWithAiTask
+    EXTRACT_DATA_WITH_AI: ExtractDataWithAiTask,
+    READ_PROPERTY_FROM_JSON:ReadPropertyFromJsonTask
 }
