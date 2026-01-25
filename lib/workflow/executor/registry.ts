@@ -11,6 +11,7 @@ import { DeliverViaWebhookExecutor } from "./DeliverViaWebhookExecutor";
 import { ClickElementExecutor } from "./ClickElementExecutor";
 import { ExtractDataWithAiExecutor } from "./ExtractDataWithAIExecutor";
 import { ReadPropertyFromJsonExecutor } from "./ReadPropertyFromJsonExecutor";
+import { AddPropertyToJsonExecutor } from "./AddPropertyToJsonExecutor";
 
 type ExecutorFn<T extends WorkflowTask> = (environment: ExecutionEnvironment<T>) => Promise<boolean>;
 type RegistryType = {
@@ -25,5 +26,6 @@ export const ExecutorRegistry: RegistryType = {
     WAIT_FOR_ELEMENT: WaitForElementExecutor,
     DELIVER_VIA_WEBHOOK: DeliverViaWebhookExecutor,
     EXTRACT_DATA_WITH_AI:ExtractDataWithAiExecutor,
-    READ_PROPERTY_FROM_JSON: ReadPropertyFromJsonExecutor
+    READ_PROPERTY_FROM_JSON: ReadPropertyFromJsonExecutor,
+    ADD_PROPERTY_TO_JSON: AddPropertyToJsonExecutor
 }
