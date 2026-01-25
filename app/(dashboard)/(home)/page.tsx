@@ -11,7 +11,7 @@ import { getStatsCardsValues } from '@/actions/analytics/getStatsCardValues';
 import { getWorkflowExecutionStats } from '@/actions/analytics/getWorkflowExecutionCharts';
 import ExecutionStatusChart from './_components/executionStatusChart';
 import { getCreditsUsageInPeriod } from '@/actions/analytics/getCreditsUsageInPeriod';
-import CreditUsageChart from './billing/_components/CreditUsageChart';
+import CreditUsageChart from '../billing/_components/CreditUsageChart';
 
 export default function HomePage({
     searchParams
