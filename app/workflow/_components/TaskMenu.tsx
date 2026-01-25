@@ -18,6 +18,7 @@ const TaskMenu = () => {
                         User Interactions
                     </AccordionTrigger>
                     <AccordionContent className='flex flex-col gap-1'>
+                        <TaskMenuButton taskType={TaskType.NAVIGATE_URL} />
                         <TaskMenuButton taskType={TaskType.FILL_INPUT} />
                         <TaskMenuButton taskType={TaskType.CLICK_ELEMENT} />
                     </AccordionContent>
