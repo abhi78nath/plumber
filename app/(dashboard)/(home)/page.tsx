@@ -4,20 +4,14 @@ import { CirclePlayIcon, CoinsIcon, WaypointsIcon } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import PeriodSelector from '@/app/(dashboard)/(home)/_components/periodSelector';
 
-
-// import CreditUsageChart from '@/app/(dashboard)/billing/_components/credit-usage-chart';
-
-
-
-
-// import { getCreditsUsageInPeriod } from '@/actions/analytics/get-credits-usage-in-period';
-
 import { getTimePeriods } from '@/actions/analytics/getTimePeriods';
 import { Period } from '@/types/analytics';
 import StatsCard from './_components/statsCard';
 import { getStatsCardsValues } from '@/actions/analytics/getStatsCardValues';
 import { getWorkflowExecutionStats } from '@/actions/analytics/getWorkflowExecutionCharts';
 import ExecutionStatusChart from './_components/executionStatusChart';
+import { getCreditsUsageInPeriod } from '@/actions/analytics/getCreditsUsageInPeriod';
+import CreditUsageChart from './billing/_components/CreditUsageChart';
 
 export default function HomePage({
     searchParams
@@ -51,9 +45,9 @@ export default function HomePage({
                 <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
                     <StatsExecutionStatus selectedPeriod={period} />
                 </Suspense>
-                {/* <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
+                <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
                     <CreditsUsageInPeriod selectedPeriod={period} />
-                </Suspense> */}
+                </Suspense>
             </div>
         </div>
     );
@@ -93,10 +87,10 @@ async function StatsExecutionStatus({ selectedPeriod }: { selectedPeriod: Period
     return <ExecutionStatusChart data={data} />;
 }
 
-// async function CreditsUsageInPeriod({ selectedPeriod }: { selectedPeriod: Period }) {
-//     const data = await getCreditsUsageInPeriod(selectedPeriod);
+async function CreditsUsageInPeriod({ selectedPeriod }: { selectedPeriod: Period }) {
+    const data = await getCreditsUsageInPeriod(selectedPeriod);
 
-//     return (
-//         <CreditUsageChart data={data} title="Daily credits spent" description="Daily credits consumed in selected period" />
-//     );
-// }
+    return (
+        <CreditUsageChart data={data} title="Daily credits spent" description="Daily credits consumed in selected period" />
+    );
+}
