@@ -6,7 +6,7 @@ import Editor from '../../_components/Editor';
 const page = async ({ params }: { params: { workflowId: string } }) => {
 
     const { workflowId } = params;
-    const { userId } = auth();
+    const { userId } = await auth();
 
     if (!userId) return <div>unauthenticated</div>
 
@@ -21,7 +21,7 @@ const page = async ({ params }: { params: { workflowId: string } }) => {
         return <div>Workflow not found</div>;
     }
     return (
-        <Editor workflow={workflow}/>
+        <Editor workflow={workflow} />
     )
 }
 

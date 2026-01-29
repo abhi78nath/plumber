@@ -11,7 +11,7 @@ export async function UpdateWorkflow({
     id: string;
     definition: string
 }) {
-    const { userId } = auth();
+    const { userId } = await auth();
 
     if (!userId) {
         throw new Error("unauthenticated");
@@ -41,7 +41,7 @@ export async function UpdateWorkflow({
         });
 
         revalidatePath("/workflows");
-        
+
         return { success: true };
     } catch (error: any) {
         console.error("SERVER: Error updating workflow:", error);
