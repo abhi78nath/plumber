@@ -9,10 +9,12 @@ export async function LaunchBrowserExecutor(
 ): Promise<boolean> {
     try {
         const websiteUrl = environment.getInput("Website Url");
-        const isServerless = !!process.env.VERCEL;
+        const isServerless = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME || !!process.env.LAMBDA_TASK_ROOT;
 
         const browser = await puppeteer.launch({
-            args: isServerless ? chromium.args : [],
+            args: isServerless
+                ? [...chromium.args, "--hide-scrollbars", "--disable-web-security", "--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage", "--disable-gpu", "--single-process", "--no-zygote"]
+                : ["--no-sandbox"],
             executablePath: isServerless
                 ? await chromium.executablePath()
                 : undefined,
