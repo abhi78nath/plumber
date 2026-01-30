@@ -39,8 +39,8 @@ export default function ExecutionStatusChart({ data }: { data: ChartData }) {
         <CardDescription>Daily number of successfull and failed workflow executions</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-[200px] w-full">
-          <AreaChart data={data} height={200} accessibilityLayer margin={{ top: 20 }}>
+        <ChartContainer config={chartConfig} className="max-h-[400px] w-full">
+          <AreaChart data={data} height={400} accessibilityLayer margin={{ top: 20 }}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="date"

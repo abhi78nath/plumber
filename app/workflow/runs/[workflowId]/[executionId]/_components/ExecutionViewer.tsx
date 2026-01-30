@@ -91,11 +91,11 @@ const ExecutionViewer = ({ execution: initialData }: { execution: ExecutionData 
                         label="Duration"
                         value={duration ? (duration) : (<Loader2Icon size={20} className='animate-spin' />)}
                     />
-                    <ExecutionLabel
+                    {/* <ExecutionLabel
                         icon={CoinsIcon}
                         label="Credits Consumed"
                         value={<ReactCountUpWrapper value={creditsConsumed} />}
-                    />
+                    /> */}
 
                 </div>
                 <Separator />
@@ -145,10 +145,10 @@ const ExecutionViewer = ({ execution: initialData }: { execution: ExecutionData 
                     <div className="flex flex-col py-4 container gap-4 overflow-auto">
                         <div className="flex gap-2 items-center">
                             <Badge variant="outline" className="space-x-4">
-                                <div className="flex gap-1 items-center">
+                                {/* <div className="flex gap-1 items-center">
                                     <CoinsIcon size={18} className="stroke-muted-foreground" />
                                     <span>Credits</span>
-                                </div>
+                                </div> */}
                                 <span>{phaseDetails.data.creditsConsumed}</span>
                             </Badge>
                             <Badge variant="outline" className="space-x-4">
