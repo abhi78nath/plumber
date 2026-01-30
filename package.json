@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && node scripts/package-chromium.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

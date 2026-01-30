@@ -3,6 +3,7 @@ export const runtime = "nodejs";
 import { ExecutionEnvironment } from "@/types/executor";
 import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium-min";
+import { GetExecutablePath } from "./GetExecutablePath";
 import { LaunchBrowserTask } from "../task/LaunchBrowser";
 
 export async function LaunchBrowserExecutor(
@@ -12,16 +13,8 @@ export async function LaunchBrowserExecutor(
         const websiteUrl = environment.getInput("Website Url");
 
         const browser = await puppeteer.launch({
-            args: [
-                ...chromium.args,
-                "--no-sandbox",
-                "--disable-setuid-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu",
-                "--no-zygote",
-                "--single-process",
-            ],
-            executablePath: await chromium.executablePath(),
+            args: chromium.args,
+            executablePath: await GetExecutablePath(),
             headless: true,
         });
 
