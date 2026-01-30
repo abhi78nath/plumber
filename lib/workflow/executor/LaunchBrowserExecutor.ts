@@ -1,4 +1,5 @@
-import waitFor from "@/lib/helper/waitFor"
+export const runtime = "nodejs";
+
 import { ExecutionEnvironment } from "@/types/executor";
 import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
@@ -9,17 +10,31 @@ export async function LaunchBrowserExecutor(
 ): Promise<boolean> {
     try {
         const websiteUrl = environment.getInput("Website Url");
-        const isServerless = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME || !!process.env.LAMBDA_TASK_ROOT;
+
+        const isServerless =
+            !!process.env.VERCEL ||
+            !!process.env.AWS_LAMBDA_FUNCTION_NAME ||
+            !!process.env.LAMBDA_TASK_ROOT;
 
         const browser = await puppeteer.launch({
             args: isServerless
-                ? [...chromium.args, "--hide-scrollbars", "--disable-web-security", "--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage", "--disable-gpu", "--single-process", "--no-zygote"]
-                : ["--no-sandbox"],
+                ? [
+                    ...chromium.args,
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-dev-shm-usage",
+                    "--disable-gpu",
+                    "--no-zygote",
+                    "--single-process",
+                ]
+                : [],
+
             executablePath: isServerless
                 ? await chromium.executablePath()
                 : undefined,
-            channel: isServerless ? undefined : "chrome",
-            headless: isServerless ? (chromium.headless as any) : false,
+
+            headless: isServerless ? true : false,
+
             defaultViewport: isServerless
                 ? chromium.defaultViewport
                 : null,
