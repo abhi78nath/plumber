@@ -1,7 +1,7 @@
 "use server";
 
 import { getAppUrl } from "@/lib/helper/appUrl";
-import { stripe } from "@/lib/stripe/stripe";
+import { getStripe } from "@/lib/stripe/stripe";
 import { getCreditsPack, PackId } from "@/types/billing";
 import { auth } from "@clerk/nextjs/server";
 
@@ -17,6 +17,7 @@ export async function PurchaseCredits(packId: PackId) {
     }
 
     try {
+        const stripe = getStripe();
         const session = await stripe.checkout.sessions.create({
             mode: "payment",
             invoice_creation: {

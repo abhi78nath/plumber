@@ -3,7 +3,7 @@
 import { auth } from '@clerk/nextjs/server';
 
 import prisma from '@/lib/prisma';
-import { stripe } from '@/lib/stripe/stripe';
+import { getStripe } from '@/lib/stripe/stripe';
 
 export async function DownloadInvoice(id: string) {
   const { userId } = await auth();
@@ -13,6 +13,7 @@ export async function DownloadInvoice(id: string) {
   }
 
   try {
+    const stripe = getStripe();
     const purchase = await prisma.userPurchase.findUnique({
       where: { id, userId },
     });
