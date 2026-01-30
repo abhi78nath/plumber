@@ -13,17 +13,17 @@ import ExecutionStatusChart from './_components/executionStatusChart';
 import { getCreditsUsageInPeriod } from '@/actions/analytics/getCreditsUsageInPeriod';
 import CreditUsageChart from '../billing/_components/CreditUsageChart';
 
-export default function HomePage({
+export default async function HomePage({
     searchParams
 }: {
-    searchParams: {
+    searchParams: Promise<{
         month?: string;
         year?: string
-    }
+    }>
 }
 ) {
     const currentDate = new Date();
-    const { month, year } = searchParams;
+    const { month, year } = await searchParams;
 
     const period: Period = {
         month: month ? parseInt(month) : currentDate.getMonth(),
