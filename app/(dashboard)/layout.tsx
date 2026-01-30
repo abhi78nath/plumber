@@ -1,3 +1,7 @@
+"use client";
+
+export const dynamic = "force-dynamic";
+
 import BreadCrumberHeader from "@/components/BreadCrumberHeader";
 import DesktopSidebar from "@/components/Sidebar";
 import { ModeToggle } from "@/components/ThemeModeToggle";
