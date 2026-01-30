@@ -2,7 +2,7 @@ export const runtime = "nodejs";
 
 import { ExecutionEnvironment } from "@/types/executor";
 import puppeteer from "puppeteer-core";
-import chromium from "@sparticuz/chromium";
+import chromium from "@sparticuz/chromium-min";
 import { LaunchBrowserTask } from "../task/LaunchBrowser";
 
 export async function LaunchBrowserExecutor(
@@ -11,33 +11,18 @@ export async function LaunchBrowserExecutor(
     try {
         const websiteUrl = environment.getInput("Website Url");
 
-        const isServerless =
-            !!process.env.VERCEL ||
-            !!process.env.AWS_LAMBDA_FUNCTION_NAME ||
-            !!process.env.LAMBDA_TASK_ROOT;
-
         const browser = await puppeteer.launch({
-            args: isServerless
-                ? [
-                    ...chromium.args,
-                    "--no-sandbox",
-                    "--disable-setuid-sandbox",
-                    "--disable-dev-shm-usage",
-                    "--disable-gpu",
-                    "--no-zygote",
-                    "--single-process",
-                ]
-                : [],
-
-            executablePath: isServerless
-                ? await chromium.executablePath()
-                : undefined,
-
-            headless: isServerless ? true : false,
-
-            defaultViewport: isServerless
-                ? chromium.defaultViewport
-                : null,
+            args: [
+                ...chromium.args,
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--no-zygote",
+                "--single-process",
+            ],
+            executablePath: await chromium.executablePath(),
+            headless: true,
         });
 
         environment.setBrowser(browser);
