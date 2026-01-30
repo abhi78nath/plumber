@@ -1,4 +1,4 @@
-import { Browser, Page } from 'puppeteer';
+import { Browser, Page } from 'puppeteer-core';
 
 import { WorkflowTask } from '@/types/workflow';
 import { LogCollector } from './log';

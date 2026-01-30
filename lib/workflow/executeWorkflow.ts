@@ -11,7 +11,7 @@ import { ExecutorRegistry } from "./executor/registry";
 import { Environment, ExecutionEnvironment } from "@/types/executor";
 import { TaskParamType } from "@/types/task";
 import { Edge } from "@xyflow/react";
-import { Browser, Page } from "puppeteer";
+import { Browser, Page } from "puppeteer-core";
 import { LogCollector } from "@/types/log";
 import { createLogCollector } from "../log";
 
@@ -269,7 +269,7 @@ async function cleanUpEnvironment(environment: Environment) {
             await environment.browser.close().catch((err) => console.error('Cannot close browser, reason:', err));
         } else {
             // disconnect to brightdata in prod
-            await environment.browser.disconnect().catch((err) => console.error('Cannot disconnect browser, reason:', err));
+            await (environment.browser as any).disconnect().catch((err: any) => console.error('Cannot disconnect browser, reason:', err));
         }
     }
 }
