@@ -35,8 +35,8 @@ export async function ExtractDataWithAiExecutor(
             return false;
         }
 
-        const plainCredentialValue = process.env.GEMINI_API_KEY!;
-        // const plainCredentialValue = symmetricDecrypt(credential.value);
+        // const plainCredentialValue = process.env.GEMINI_API_KEY!;
+        const plainCredentialValue = symmetricDecrypt(credential.value);
         const genAI = new GoogleGenAI({
             apiKey: plainCredentialValue,
         });
@@ -66,8 +66,7 @@ export async function ExtractDataWithAiExecutor(
                         {
                             text: `
 SYSTEM:
-You are a webscraper helper that extracts data from HTML or text.
-Return ONLY valid JSON.
+You are a webscraper helper that extracts data from HTML or text. You will be given a piece of text or HTML content as input and also the prompt with the data you have to extract. The response should always be only the extracted data as a JSON array or object, without any additional words or explanations. Analyze the input carefully and extract data precisely based on the prompt. If no data is found, return an empty JSON array. Work only with the provided content and ensure the output is always a valid JSON array without any surrounding text.
 
 CONTENT:
 ${content}
