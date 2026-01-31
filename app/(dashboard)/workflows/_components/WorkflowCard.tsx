@@ -11,7 +11,7 @@ import { Workflow } from '@prisma/client';
 import { ChevronRightIcon, ClockIcon, CoinsIcon, CornerDownRightIcon, FileTextIcon, MoreVerticalIcon, MoveRightIcon, PlayIcon, ShuffleIcon, TrashIcon } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react'
-import DeleteWorkflowDIalog from './DeleteWorkflowDialog';
+import DeleteWorkflowDialog from './DeleteWorkflowDialog';
 import RunButton from './RunButton';
 import SchedulerDialog from './SchedulerDialog';
 import { Badge } from '@/components/ui/badge';
@@ -78,7 +78,7 @@ const WorkflowActions = ({ workflowName, workflowId }: { workflowName: string, w
     const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
     return (
         <>
-            <DeleteWorkflowDIalog
+            <DeleteWorkflowDialog
                 open={showDeleteDialog}
                 setOpen={setShowDeleteDialog}
                 workflowName={workflowName}
