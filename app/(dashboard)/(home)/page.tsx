@@ -45,9 +45,9 @@ export default async function HomePage({
                 <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
                     <StatsExecutionStatus selectedPeriod={period} />
                 </Suspense>
-                <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
+                {/* <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
                     <CreditsUsageInPeriod selectedPeriod={period} />
-                </Suspense>
+                </Suspense> */}
             </div>
         </div>
     );
@@ -63,10 +63,10 @@ async function StatsCards({ selectedPeriod }: { selectedPeriod: Period }) {
     const data = await getStatsCardsValues(selectedPeriod);
 
     return (
-        <div className="grid gap-3 lg:gap-8 lg:grid-cols-3 min-h-[120px]">
+        <div className="grid gap-3 lg:gap-8 lg:grid-cols-2 min-h-[120px]">
             <StatsCard title="Workflow executions" value={data.workflowExecutions} icon={CirclePlayIcon} />
             <StatsCard title="Phase executions" value={data.phaseExecutions} icon={WaypointsIcon} />
-            <StatsCard title="Credits consumed" value={data.creditsConsumed} icon={CoinsIcon} />
+            {/* <StatsCard title="Credits consumed" value={data.creditsConsumed} icon={CoinsIcon} /> */}
         </div>
     );
 }

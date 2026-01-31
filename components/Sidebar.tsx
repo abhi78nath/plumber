@@ -31,11 +31,11 @@ const routes = [
     label: "Credentials",
     icon: ShieldIcon,
   },
-  {
-    href: "billing",
-    label: "Billing",
-    icon: CoinsIcon,
-  },
+  // {
+  //   href: "billing",
+  //   label: "Billing",
+  //   icon: CoinsIcon,
+  // },
 ];
 
 function DesktopSidebar() {
@@ -49,7 +49,7 @@ function DesktopSidebar() {
       <div className="flex items-center justify-center gap-2 border-b-[1px] border-separate p-4">
         <Logo />
       </div>
-      <div className="p-2"><UserAvailableCreditsBadge /></div>
+      {/* <div className="p-2"><UserAvailableCreditsBadge /></div> */}
       <div className="flex flex-col p-2">
         {routes.map((route) => (
           <Link

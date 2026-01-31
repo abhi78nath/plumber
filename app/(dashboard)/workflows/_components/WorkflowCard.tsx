@@ -6,11 +6,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import { WorkflowExecutionStatus, WorkflowStatus } from '@/types/workflow';
+
 import { Workflow } from '@prisma/client';
 import { ChevronRightIcon, ClockIcon, CoinsIcon, CornerDownRightIcon, FileTextIcon, MoreVerticalIcon, MoveRightIcon, PlayIcon, ShuffleIcon, TrashIcon } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react'
-import DeleteWorkflowDIalog from './DeleteWorkflowDIalog';
+import DeleteWorkflowDIalog from './DeleteWorkflowDialog';
 import RunButton from './RunButton';
 import SchedulerDialog from './SchedulerDialog';
 import { Badge } from '@/components/ui/badge';
@@ -128,7 +129,7 @@ function ScheduleSection({
         <div className="flex items-center gap-2">
             <CornerDownRightIcon className="h-4 w-4 text-muted-foreground" />
             <SchedulerDialog workflowId={workflowId} cron={cron} key={`${cron}-${workflowId}`} />
-            <MoveRightIcon className="h-4 w-4 text-muted-foreground" />
+            {/* <MoveRightIcon className="h-4 w-4 text-muted-foreground" />
             <TooltipWrapper content="Credit consumption for full run">
                 <div className="flex items-center gap-3">
                     <Badge variant="outline" className="space-x-2 text-muted-foreground rounded-sm">
@@ -136,7 +137,7 @@ function ScheduleSection({
                         <span className="text-sm">{creditsCost}</span>
                     </Badge>
                 </div>
-            </TooltipWrapper>
+            </TooltipWrapper> */}
         </div>
     );
 };
