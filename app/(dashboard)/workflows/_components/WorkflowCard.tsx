@@ -11,7 +11,7 @@ import { Workflow } from '@prisma/client';
 import { ChevronRightIcon, ClockIcon, CoinsIcon, CornerDownRightIcon, FileTextIcon, MoreVerticalIcon, MoveRightIcon, PlayIcon, ShuffleIcon, TrashIcon } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react'
-import DeleteWorkflowDialog from './DeleteWorkflowDialog';
+
 import RunButton from './RunButton';
 import SchedulerDialog from './SchedulerDialog';
 import { Badge } from '@/components/ui/badge';
@@ -20,6 +20,7 @@ import { ExecutionStatusIndicator, ExecutionStatusLabel } from '@/app/workflow/r
 
 import { formatInTimeZone } from "date-fns-tz"
 import DuplicateWorkflowDialog from './DuplicateWorkflowDialog';
+import DeleteWorkflowDialog from './DeleteWorkflowDialog';
 
 const statusColors = {
     [WorkflowStatus.DRAFT]: "bg-yellow-400 text-yellow-600",
