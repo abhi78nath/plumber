@@ -20,7 +20,7 @@ import { ExecutionStatusIndicator, ExecutionStatusLabel } from '@/app/workflow/r
 
 import { formatInTimeZone } from "date-fns-tz"
 import DuplicateWorkflowDialog from './DuplicateWorkflowDialog';
-import DeleteWorkflowDialog from './DeleteWorkflowDialog';
+import DeleteWorkflowDialog from './DeleteWorkflowDialogg';
 
 const statusColors = {
     [WorkflowStatus.DRAFT]: "bg-yellow-400 text-yellow-600",
