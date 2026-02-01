@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { SquareDashedMousePointer } from "lucide-react";
+import { WorkflowIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -19,13 +19,13 @@ function Logo({
       )}
     >
       <div className="rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 p-2">
-        <SquareDashedMousePointer size={iconSize} className="stroke-white" />
+        <WorkflowIcon size={iconSize} className="stroke-white" />
       </div>
       <div>
         <span className="bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent">
-          Scrape
+          Plum
         </span>
-        <span className="text-stone-700 dark:text-stone-300">Master</span>
+        <span className="text-stone-700 dark:text-stone-300">ber</span>
       </div>
     </Link>
   );
