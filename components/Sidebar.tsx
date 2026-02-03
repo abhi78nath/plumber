@@ -4,6 +4,7 @@ import {
   CoinsIcon,
   HomeIcon,
   Layers2Icon,
+  LayoutDashboardIcon,
   MenuIcon,
   ShieldIcon,
 } from "lucide-react";
@@ -18,8 +19,8 @@ import UserAvailableCreditsBadge from "./UserAvailableCreditsBadge";
 const routes = [
   {
     href: "",
-    label: "Home",
-    icon: HomeIcon,
+    label: "Dashboard",
+    icon: LayoutDashboardIcon,
   },
   {
     href: "workflows",
@@ -46,7 +47,7 @@ function DesktopSidebar() {
     ) || routes[0];
   return (
     <div className="hidden relative md:block min-w-[280px] max-w-[280px] h-screen overflow-hidden w-full bg-primary/5 dark:bg-secondary/30 dark:text-foreground text-muted-foreground border-r-2 border-separate">
-      <div className="flex items-center justify-center gap-2 border-b-[1px] border-separate p-4">
+      <div className="flex items-center justify-start gap-2 border-b-[1px] border-separate p-4">
         <Logo />
       </div>
       {/* <div className="p-2"><UserAvailableCreditsBadge /></div> */}
@@ -80,7 +81,7 @@ export function MobileSidebar() {
     ) || routes[0];
   return (
     <div className="block border-separate bg-background md:hidden">
-      <nav className="container flex items-center justify-between px-8">
+      <nav className="container flex items-center justify-start px-8">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button variant={"ghost"} size={"icon"}>

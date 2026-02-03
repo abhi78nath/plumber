@@ -33,7 +33,7 @@ export default async function HomePage({
     return (
         <div className="flex flex-1 flex-col h-full">
             <div className="flex justify-between">
-                <h1 className="text-3xl font-bold">Home</h1>
+                <h1 className="text-3xl font-bold">Dashboard</h1>
                 <Suspense fallback={<Skeleton className="w-[180px] h-[40px]" />}>
                     <PeriodSelectorWrapper selectedPeriod={period} />
                 </Suspense>

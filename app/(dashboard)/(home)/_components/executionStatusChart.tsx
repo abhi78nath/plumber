@@ -33,7 +33,7 @@ export default function ExecutionStatusChart({ data }: { data: ChartData }) {
     <Card>
       <CardHeader>
         <CardTitle className="text-2xl font-bold flex items-center gap-2">
-          <Layers2Icon className="w-6 h-6 text-primary" />
+          <Layers2Icon className="w-6 h-6 text-primary-foreground" />
           Workflow execution status
         </CardTitle>
         <CardDescription>Daily number of successfull and failed workflow executions</CardDescription>

@@ -14,14 +14,14 @@ export default function StatsCard(props: Props) {
   return (
     <Card className="relative overflow-hidden h-full">
       <CardHeader className="flex pb-2">
-        <CardTitle>{props.title}</CardTitle>
+        <CardTitle className='text-sm tracking-[0.2em] uppercase dark:text-[#7D8B96] font-medium'>{props.title}</CardTitle>
         <props.icon
           size={120}
           className="text-muted-foreground absolute -bottom-4 -right-8 stroke-primary opacity-10"
         />
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold text-primary">
+        <div className="text-5xl font-bold">
           <ReactCountUpWrapper value={props.value} />
         </div>
       </CardContent>
