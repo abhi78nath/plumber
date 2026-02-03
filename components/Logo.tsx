@@ -18,14 +18,11 @@ function Logo({
         fontSize
       )}
     >
-      <div className="rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 p-2">
-        <WorkflowIcon size={iconSize} className="stroke-white" />
+      <div className="rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-600 p-2">
+        <WorkflowIcon size={iconSize} className="stroke-black" />
       </div>
       <div>
-        <span className="bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent">
-          Plum
-        </span>
-        <span className="text-stone-700 dark:text-stone-300">ber</span>
+        <span className="text-stone-700 dark:text-[#9FB7C6] text-[1.4rem] font-semibold">Plumber</span>
       </div>
     </Link>
   );
