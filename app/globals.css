@@ -24,7 +24,7 @@
 
 
 @layer base {
-  :root {
+  /* :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -47,12 +47,12 @@
     --radius: 0.5rem;
     --chart-1: 142 88% 28%;
     --chart-2: 140 74% 44%;
-  }
+  } */
 
   .dark {
     --background: 20 14.3% 4.1%;
     --foreground: 0 0% 95%;
-    --card: 210 24% 10%;
+    --card: 210 16% 7%;
     --card-primary: 206 11% 54%;
     --card-secondary: 24 9.8% 10%;
     --card-foreground: 0 0% 95%;
@@ -75,6 +75,7 @@
     --chart-2: 186 100% 50%;
     --green-400: 187 100% 60%;
     --green-500: 187 100% 50%;
+    --radius: 0.5rem;
   }
 }
 

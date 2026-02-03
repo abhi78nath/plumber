@@ -95,7 +95,7 @@ export default function SchedulerDialog(props: { workflowId: string; cron: strin
           <div
             className={cn(
               'bg-accent rounded-md p-4 border text-sm border-destructive text-destructive',
-              validCron && 'border-primary text-primary'
+              validCron && 'border-primary-foreground text-white'
             )}
           >
             {validCron ? readableCron : 'Not a valid cron expression'}

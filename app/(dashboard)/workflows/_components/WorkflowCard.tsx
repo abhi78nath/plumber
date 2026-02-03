@@ -23,8 +23,8 @@ import DuplicateWorkflowDialog from './DuplicateWorkflowDialog';
 import DeleteWorkflowDialog from './DeleteWorkflowDialogg';
 
 const statusColors = {
-    [WorkflowStatus.DRAFT]: "bg-yellow-400 text-yellow-600",
-    [WorkflowStatus.PUBLISHED]: "bg-primary",
+    [WorkflowStatus.DRAFT]: "text-white bg-yellow-600",
+    [WorkflowStatus.PUBLISHED]: "bg-primary-foreground",
 
 }
 function WorkflowCard({ workflow }: { workflow: Workflow }) {
@@ -40,7 +40,7 @@ function WorkflowCard({ workflow }: { workflow: Workflow }) {
                         {isDraft ? (
                             <FileTextIcon className='h-5 w-5' />
                         ) : (
-                            <PlayIcon className='h-5 w-5 text-white' />
+                            <PlayIcon className='h-5 w-5 text-primary' />
                         )}
                     </div>
                     <div>

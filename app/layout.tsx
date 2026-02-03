@@ -25,7 +25,7 @@ export default function RootLayout({
       appearance={{
         elements: {
           formButtonPrimary:
-            "bg-primary hover:bg-primary/90 text-sm !shadow-none",
+            "bg-primary hover:bg-primary/90 text-sm text-primary-foreground !shadow-none",
         },
       }}
     >
