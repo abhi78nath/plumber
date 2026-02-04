@@ -40,7 +40,7 @@ function WorkflowCard({ workflow }: { workflow: Workflow }) {
     const isDraft = workflow.status === WorkflowStatus.DRAFT;
 
     return (
-        <Card className='border border-separate shadow-sm rounded-lg overflow-hidden hover:shadow-md dark:shadow-primary/30 group/card flex flex-col min-h-[280px]'>
+        <Card className='border border-separate shadow-sm rounded-lg overflow-hidden hover:shadow-md dark:shadow-primary/30 group/card flex flex-col'>
             <CardContent className='p-4 flex flex-col flex-1 gap-4'>
                 {/* Header Section - Workflow Name and Status */}
                 <div className='flex items-start justify-between gap-2'>
