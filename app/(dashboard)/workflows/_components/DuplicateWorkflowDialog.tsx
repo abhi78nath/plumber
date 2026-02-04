@@ -12,14 +12,14 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 
 import { cn } from '@/lib/utils';
 import CustomDialogHeader from '@/components/CustomDialogHeader';
 import { duplicateWorkflowSchema, duplicateWorkflowSchemaType } from '@/schema/workflow';
 import { DuplicateWorkflow } from '@/actions/workflows/duplicateWorkflow';
 
-export default function DuplicateWorkflowDialog({ workflowId }: { workflowId: string }) {
+export default function DuplicateWorkflowDialog({ workflowId, triggerInDropdown = false }: { workflowId: string; triggerInDropdown?: boolean }) {
   const [open, setOpen] = useState(false);
 
   const form = useForm<duplicateWorkflowSchemaType>({
@@ -61,13 +61,20 @@ export default function DuplicateWorkflowDialog({ workflowId }: { workflowId: st
       }}
     >
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className={cn('ml-2 transition-opacity duration-200 opacity-0 group-hover/card:opacity-100')}
-        >
-          <CopyIcon className="w-4 h-4 text-muted-foreground cursor-pointer" />
-        </Button>
+        {triggerInDropdown ? (
+          <DropdownMenuItem onSelect={(e) => e.preventDefault()} className='flex items-center gap-2 cursor-pointer'>
+            <CopyIcon size={16} />
+            Duplicate workflow
+          </DropdownMenuItem>
+        ) : (
+          <Button
+            variant="ghost"
+            size="icon"
+            className={cn('ml-2 transition-opacity duration-200 opacity-0 group-hover/card:opacity-100')}
+          >
+            <CopyIcon className="w-4 h-4 text-muted-foreground cursor-pointer" />
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="px-0">
         <CustomDialogHeader icon={Layers2Icon} title="Duplicate workflow" />
