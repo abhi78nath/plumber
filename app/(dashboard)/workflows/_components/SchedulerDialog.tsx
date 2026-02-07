@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import cronstrue from 'cronstrue';
-import parser, { CronExpressionParser } from 'cron-parser';
+import parser from 'cron-parser';
 import { CalendarIcon, ClockIcon, TriangleAlertIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -51,7 +51,7 @@ export default function SchedulerDialog(props: { workflowId: string; cron: strin
 
   useEffect(() => {
     try {
-      CronExpressionParser.parse(cron);
+      parser.parseExpression(cron);
       const humanCronStr = cronstrue.toString(cron);
       setValidCron(true);
       setReadableCron(humanCronStr);
@@ -95,7 +95,7 @@ export default function SchedulerDialog(props: { workflowId: string; cron: strin
           <div
             className={cn(
               'bg-accent rounded-md p-4 border text-sm border-destructive text-destructive',
-              validCron && 'border-primary-foreground text-white'
+              validCron && 'border-primary text-primary'
             )}
           >
             {validCron ? readableCron : 'Not a valid cron expression'}

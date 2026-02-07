@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-	darkMode: "class",
+	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{js,ts,jsx,tsx,mdx}",
 		"./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -66,10 +66,6 @@ const config: Config = {
 					'3': 'hsl(var(--chart-3))',
 					'4': 'hsl(var(--chart-4))',
 					'5': 'hsl(var(--chart-5))'
-				},
-				green: {
-					'400': 'hsl(var(--green-400, 142 69% 58%))',
-					'500': 'hsl(var(--green-500, 142 71% 45%))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',

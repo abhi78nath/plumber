@@ -7,7 +7,7 @@ import { Period } from '@/types/analytics';
 
 
 export async function getTimePeriods() {
-  const { userId } = await auth();
+  const { userId } = auth();
 
   if (!userId) {
     throw new Error('Unauthenticated');

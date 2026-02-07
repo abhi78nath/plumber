@@ -3,17 +3,16 @@
 import { auth } from '@clerk/nextjs/server';
 
 import prisma from '@/lib/prisma';
-import { getStripe } from '@/lib/stripe/stripe';
+import { stripe } from '@/lib/stripe/stripe';
 
 export async function DownloadInvoice(id: string) {
-  const { userId } = await auth();
+  const { userId } = auth();
 
   if (!userId) {
     throw new Error('Unauthenticated');
   }
 
   try {
-    const stripe = getStripe();
     const purchase = await prisma.userPurchase.findUnique({
       where: { id, userId },
     });

@@ -20,5 +20,5 @@ const labelColors: Record<WorkflowExecutionStatus, string> = {
 };
 
 export function ExecutionStatusLabel({ status }: { status: WorkflowExecutionStatus }) {
-  return <span className={cn(labelColors[status])}>{status}</span>;
+  return <span className={cn('lowercase', labelColors[status])}>{status}</span>;
 }

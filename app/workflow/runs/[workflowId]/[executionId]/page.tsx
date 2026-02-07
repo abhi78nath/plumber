@@ -4,19 +4,18 @@ import { Loader2Icon } from 'lucide-react';
 import React, { Suspense } from 'react'
 import ExecutionViewer from './_components/ExecutionViewer';
 
-const ExecutionViewerPage = async ({ params }: {
-    params: Promise<{
+const ExecutionViewerPage = ({ params }: {
+    params: {
         executionId: string;
         workflowId: string;
-    }>
+    }
 }) => {
-    const { executionId, workflowId } = await params;
     return (
         <div className='flex flex-col h-screen w-full overflow-hidden'>
             <Topbar
-                workflowId={workflowId}
+                workflowId={params.workflowId}
                 title="Workflow run details"
-                subTitle={`Run ID: ${executionId}`}
+                subTitle={`Run ID: ${params.executionId}`}
                 hideButtons
             />
             <section className='flex h-full overflow-auto'>
@@ -25,7 +24,7 @@ const ExecutionViewerPage = async ({ params }: {
                         <Loader2Icon className='h-10 w-10 animate-spin stroke-primary' />
                     </div>
                 }>
-                    <ExecutionViewerWrapper executionId={executionId} />
+                    <ExecutionViewerWrapper executionId={params.executionId} />
                 </Suspense>
             </section>
         </div>
@@ -40,7 +39,7 @@ const ExecutionViewerWrapper = async ({ executionId }: { executionId: string }) 
         )
     }
     return (
-        <ExecutionViewer execution={workflowExecution} />
+        <ExecutionViewer execution={workflowExecution}/>
     )
 }
 

@@ -13,7 +13,7 @@ export async function CreateCredential(form: createCredentialSchemaType) {
         throw new Error("invalid form data");
     }
 
-    const { userId } = await auth();
+    const { userId } = auth();
     if (!userId) {
         throw new Error("unauthenticated")
     }

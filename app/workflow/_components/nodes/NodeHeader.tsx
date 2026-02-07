@@ -23,10 +23,10 @@ const NodeHeader = ({ taskType, nodeId }: { taskType: TaskType, nodeId: string }
                 </p>
                 <div className='flex gap-1 items-center'>
                     {task.isEntryPoint && <Badge>Entry Point</Badge>}
-                    {/* <Badge className='gap-2 flex items-center text-xs'>
+                    <Badge className='gap-2 flex items-center text-xs'>
                         <CoinsIcon size={16} />
                         {task.credits}
-                    </Badge> */}
+                    </Badge>
                     {!task.isEntryPoint && (
                         <>
                             <Button variant={"ghost"} size={"icon"} onClick={() => {

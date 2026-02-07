@@ -14,7 +14,7 @@ interface Props {
     workflowName: string;
     workflowId: string;
 }
-const DeleteWorkflowDialog = ({ open, setOpen, workflowName, workflowId }: Props) => {
+const DeleteWorkflowDIalog = ({ open, setOpen, workflowName, workflowId }: Props) => {
     const [confirmText, setConfirmText] = useState("");
 
     const deleteMutation = useMutation({
@@ -65,4 +65,4 @@ const DeleteWorkflowDialog = ({ open, setOpen, workflowName, workflowId }: Props
     )
 }
 
-export default DeleteWorkflowDialog
+export default DeleteWorkflowDIalog

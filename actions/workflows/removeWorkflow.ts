@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
 export async function RemoveWorkflowSchedule(id: string) {
-    const { userId } = await auth();
+    const { userId } = auth();
 
     if (!userId) {
         throw new Error("unauthenticated");

@@ -14,7 +14,7 @@ export async function PublishWorkflow({
     id: string;
     flowDefinition: string;
 }) {
-    const { userId } = await auth();
+    const { userId } = auth();
     if (!userId) {
         throw new Error("unauthenticated");
     }

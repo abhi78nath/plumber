@@ -1,11 +1,9 @@
-export const runtime = "nodejs";
-
 import prisma from "@/lib/prisma";
 import { ExecuteWorkflow } from "@/lib/workflow/executeWorkflow";
 import { TaskRegistry } from "@/lib/workflow/task/registry";
 import { ExecutionPhaseStatus, WorkflowExecutionPlan, WorkflowExecutionStatus, WorkflowExecutionTrigger } from "@/types/workflow";
 import { timingSafeEqual } from "crypto";
-import parser, { CronExpressionParser } from 'cron-parser';
+import parser from 'cron-parser';
 
 function isValidSecret(secret: string) {
     const API_SECRET = process.env.API_SECRET;
@@ -56,7 +54,7 @@ export async function GET(request: Request) {
     }
 
     try {
-        const cron = CronExpressionParser.parse(workflow.cron!);
+        const cron = parser.parseExpression(workflow.cron!, { utc: true });
         const nextRun = cron.next().toDate();
 
         const execution = await prisma.workflowExecution.create({
