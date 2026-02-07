@@ -12,7 +12,7 @@ export async function ScrollToElementExecutor(
       environment.log.error('input->selector not defined');
     }
 
-    await environment.getPage()!.evaluate((selector) => {
+    await (environment.getPage() as any)!.evaluate((selector: string) => {
       const element = document.querySelector(selector);
       if (!element) {
         throw new Error('Element not found');

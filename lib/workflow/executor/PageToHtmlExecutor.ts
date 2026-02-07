@@ -4,10 +4,10 @@ import { LaunchBrowserTask } from '../task/LaunchBrowser';
 import { PageToHtmlTask } from '../task/PageToHtml';
 
 export async function PageToHtmlExecutor(
-    environment: ExecutionEnvironment<typeof PageToHtmlTask>
+  environment: ExecutionEnvironment<typeof PageToHtmlTask>
 ): Promise<boolean> {
   try {
-    const html = await environment.getPage()!.content();
+    const html = await (environment.getPage() as any)!.content();
     environment.setOutput('Html', html);
 
     return true;

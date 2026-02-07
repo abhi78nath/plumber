@@ -9,7 +9,7 @@ export async function NavigateUrlExecutor(environment: ExecutionEnvironment<type
       environment.log.error('input->url not defined');
     }
 
-    await environment.getPage()!.goto(url);
+    await (environment.getPage() as any)!.goto(url);
     environment.log.info(`Visited ${url}`);
 
     return true;
