@@ -1,12 +1,13 @@
+export const dynamic = "force-dynamic";
+
 import prisma from '@/lib/prisma';
 import { auth } from '@clerk/nextjs/server';
 import React from 'react'
 import Editor from '../../_components/Editor';
 
-const page = async ({ params }: { params: { workflowId: string } }) => {
-
-    const { workflowId } = params;
-    const { userId } = auth();
+const page = async ({ params }: { params: Promise<{ workflowId: string }> }) => {
+    const { workflowId } = await params;
+    const { userId } = await auth();
 
     if (!userId) return <div>unauthenticated</div>
 
@@ -21,7 +22,7 @@ const page = async ({ params }: { params: { workflowId: string } }) => {
         return <div>Workflow not found</div>;
     }
     return (
-        <Editor workflow={workflow}/>
+        <Editor workflow={workflow} />
     )
 }
 

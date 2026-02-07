@@ -37,7 +37,7 @@ export default function ExecutionsTable({
           <TableRow>
             <TableHead>Id</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Consumed</TableHead>
+            {/* <TableHead>Consumed</TableHead> */}
             <TableHead className="text-right text-xs text-muted-foreground">Started at (desc)</TableHead>
           </TableRow>
         </TableHeader>
@@ -77,7 +77,7 @@ export default function ExecutionsTable({
                     <div className="text-muted-foreground text-xs mx-5">{duration}</div>
                   </div>
                 </TableCell>
-                <TableCell>
+                {/* <TableCell>
                   <div className="flex flex-col">
                     <div className="flex gap-2 items-center">
                       <CoinsIcon size={16} className="text-primary" />
@@ -85,7 +85,7 @@ export default function ExecutionsTable({
                     </div>
                     <div className="text-muted-foreground text-xs mx-5">Credits</div>
                   </div>
-                </TableCell>
+                </TableCell> */}
                 <TableCell className="text-right text-muted-foreground">{formattedStartedAt}</TableCell>
               </TableRow>
             );

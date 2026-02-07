@@ -21,7 +21,7 @@ export async function CreateWorkflow(
     throw new Error("invalid form data");
   }
 
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) {
     throw new Error("unauthenticated");
   }

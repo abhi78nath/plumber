@@ -30,8 +30,8 @@ const RunButton = ({ workflowId }: { workflowId: string }) => {
     return (
         <Button
             variant="outline"
-            size="sm"
-            className="flex items-center gap-2"
+            size="default"
+            className="flex items-center gap-2 justify-center"
             disabled={mutation.isPending}
             onClick={() => {
                 toast.loading('Scheduling run...', { id: workflowId });

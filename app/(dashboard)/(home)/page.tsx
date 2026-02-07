@@ -13,17 +13,17 @@ import ExecutionStatusChart from './_components/executionStatusChart';
 import { getCreditsUsageInPeriod } from '@/actions/analytics/getCreditsUsageInPeriod';
 import CreditUsageChart from '../billing/_components/CreditUsageChart';
 
-export default function HomePage({
+export default async function HomePage({
     searchParams
 }: {
-    searchParams: {
+    searchParams: Promise<{
         month?: string;
         year?: string
-    }
+    }>
 }
 ) {
     const currentDate = new Date();
-    const { month, year } = searchParams;
+    const { month, year } = await searchParams;
 
     const period: Period = {
         month: month ? parseInt(month) : currentDate.getMonth(),
@@ -45,9 +45,9 @@ export default function HomePage({
                 <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
                     <StatsExecutionStatus selectedPeriod={period} />
                 </Suspense>
-                <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
+                {/* <Suspense fallback={<Skeleton className="w-full h-[300px]" />}>
                     <CreditsUsageInPeriod selectedPeriod={period} />
-                </Suspense>
+                </Suspense> */}
             </div>
         </div>
     );
@@ -63,10 +63,10 @@ async function StatsCards({ selectedPeriod }: { selectedPeriod: Period }) {
     const data = await getStatsCardsValues(selectedPeriod);
 
     return (
-        <div className="grid gap-3 lg:gap-8 lg:grid-cols-3 min-h-[120px]">
+        <div className="grid gap-3 lg:gap-8 lg:grid-cols-2 min-h-[120px]">
             <StatsCard title="Workflow executions" value={data.workflowExecutions} icon={CirclePlayIcon} />
             <StatsCard title="Phase executions" value={data.phaseExecutions} icon={WaypointsIcon} />
-            <StatsCard title="Credits consumed" value={data.creditsConsumed} icon={CoinsIcon} />
+            {/* <StatsCard title="Credits consumed" value={data.creditsConsumed} icon={CoinsIcon} /> */}
         </div>
     );
 }

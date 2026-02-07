@@ -7,7 +7,7 @@ import {
   createWorkflowSchema,
   createWorkflowSchemaType,
 } from "@/schema/workflow";
-import { Layers2Icon, Loader2 } from "lucide-react";
+import { Layers2Icon, Loader2, PlusIcon } from "lucide-react";
 import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -75,7 +75,10 @@ function CreateWorkflowDialog({ triggerText }: { triggerText?: string }) {
       setOpen(open);
     }} >
       <DialogTrigger asChild>
-        <Button>{triggerText ?? "Create workflow"}</Button>
+        <Button className="flex items-center gap-2">
+          <PlusIcon className="w-4 h-4" />
+          {triggerText ?? "Create workflow"}
+        </Button>
       </DialogTrigger>
       <DialogContent className="px-0">
         <CustomDialogHeader

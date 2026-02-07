@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
 export async function DeleteCredential(name: string) {
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
         throw new Error("unauthenticated");
     }

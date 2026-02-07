@@ -11,7 +11,7 @@ export async function RunWorkFlow(form: {
     workflowId: string;
     flowDefinition?: string;
 }) {
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
         throw new Error("unauthenticated");
     }

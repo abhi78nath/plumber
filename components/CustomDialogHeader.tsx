@@ -23,11 +23,11 @@ function CustomDialogHeader(props: Props) {
           {props.icon && (
             <props.icon
               size={30}
-              className={cn("stroke-primary", props.iconClassName)}
+              className={cn("stroke-primary dark:stroke-white", props.iconClassName)}
             />
           )}
           {props.title && (
-            <p className={cn("text-xl text-primary", props.titleClassName)}>
+            <p className={cn("text-xl text-primary dark:text-white", props.titleClassName)}>
               {props.title}
             </p>
           )}
