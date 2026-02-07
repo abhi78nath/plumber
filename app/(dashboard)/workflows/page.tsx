@@ -29,9 +29,9 @@ function page() {
 
 const UserWorkflowSkeleton = () => {
   return (
-    <div className="space-y-2">
-      {[1, 2, 3, 4].map((i) => (
-        <Skeleton key={i} className="h-32 w-full" />
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+        <Skeleton key={i} className="h-64 w-full" />
       ))}
     </div>
   );
@@ -70,7 +70,7 @@ const UserWorkflows = async () => {
     );
   }
   return (
-    <div className="grid grid-cols-1 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {workflows.map((workflow) => (
         <WorkflowCard key={workflow?.id} workflow={workflow} />
       ))}

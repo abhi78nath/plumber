@@ -3,7 +3,7 @@
 import TooltipWrapper from '@/components/TooltipWrapper';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import React from 'react'
 import SaveButton from './SaveButton';
 import ExecuteButton from './ExecuteButton';
@@ -20,11 +20,19 @@ interface Props {
 }
 const Topbar = ({ title, subTitle, workflowId, hideButtons = false, isPublished }: Props) => {
     const router = useRouter();
+    const pathname = usePathname();
+
     return (
         <header className='flex p-2 border-b-2 border-separate justify-between w-full h-[60px] sticky top-0 bg-background z-10'>
             <div className='flex gap-1 flex-1'>
                 <TooltipWrapper content="Back">
-                    <Button variant={"ghost"} size={"icon"} onClick={() => router.back()}>
+                    <Button variant={"ghost"} size={"icon"} onClick={() => {
+                        if (pathname?.includes("editor")) {
+                            router.push("/workflows");
+                        } else {
+                            router.back();
+                        }
+                    }}>
                         <ChevronLeft size={20} />
                     </Button>
                 </TooltipWrapper>

@@ -67,6 +67,10 @@ const config: Config = {
 					'4': 'hsl(var(--chart-4))',
 					'5': 'hsl(var(--chart-5))'
 				},
+				green: {
+					'400': 'hsl(var(--green-400, 142 69% 58%))',
+					'500': 'hsl(var(--green-500, 142 71% 45%))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
