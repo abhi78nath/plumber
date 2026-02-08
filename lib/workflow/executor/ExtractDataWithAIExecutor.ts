@@ -94,7 +94,7 @@ ${prompt}
             return false;
         }
 
-        environment.setOutput("Extracted data", extractedText);
+        environment.setOutput("Extracted output", extractedText);
 
 
 
@@ -136,7 +136,7 @@ ${prompt}
             environment.log.error("Gemini returned invalid JSON");
             return false;
         }
-        environment.setOutput("Extracted data", cleanedJson);
+        environment.setOutput("Extracted output", cleanedJson);
         return true;
     } catch (error: any) {
         console.error("EXECUTOR ERROR", error)

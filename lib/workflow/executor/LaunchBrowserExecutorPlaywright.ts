@@ -55,7 +55,7 @@ export async function LaunchBrowserExecutorPlaywright(
 //         const websiteUrl = environment.getInput("Website Url");
 
 //         const browser = await chromium.launch({
-//             headless: true,
+//             headless: false,
 //         });
 
 //         const context = await browser.newContext();

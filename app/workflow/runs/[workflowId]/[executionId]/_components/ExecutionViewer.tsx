@@ -238,21 +238,19 @@ function ParameterViewer({
                             <div key={key} className="flex flex-col gap-1">
                                 <div className="flex items-center justify-between">
                                     <p className="text-sm text-muted-foreground">{key}</p>
-                                    {(key === "Html" || key === "Extracted text") && (
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="h-8 w-8"
-                                            onClick={() => {
-                                                navigator.clipboard.writeText(value as string);
-                                                toast.success("Content copied to clipboard");
-                                            }}
-                                        >
-                                            <CopyIcon size={14} />
-                                        </Button>
-                                    )}
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-8 w-8"
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(value as string);
+                                            toast.success("Content copied to clipboard");
+                                        }}
+                                    >
+                                        <CopyIcon size={14} />
+                                    </Button>
                                 </div>
-                                {key === "Html" ? (
+                                {key === "Html" || key === "Content" ? (
                                     <div className="rounded-md overflow-hidden border">
                                         <SyntaxHighlighter
                                             language="html"
@@ -269,7 +267,7 @@ function ParameterViewer({
                                             {value as string}
                                         </SyntaxHighlighter>
                                     </div>
-                                ) : key === "Extracted text" ? (
+                                ) : key === "Extracted data" ? (
                                     <Textarea readOnly value={value as string} className="min-h-[300px] font-mono" />
                                 ) : (
                                     <Input readOnly value={value as string} />
