@@ -71,7 +71,7 @@ const UserWorkflows = async () => {
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {workflows.map((workflow) => (
+      {workflows.sort((a, b) => b.updateAt.getTime() - a.updateAt.getTime()).map((workflow) => (
         <WorkflowCard key={workflow?.id} workflow={workflow} />
       ))}
     </div>
