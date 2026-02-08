@@ -73,7 +73,7 @@ const ExecuteButton = ({ workflowId }: { workflowId: string }) => {
                 }}
             >
                 <PlayIcon size={16} className='stroke-orange-400' />
-                ExecuteButton
+                Execute Workflow
             </Button>
         </>
     )
