@@ -41,6 +41,7 @@ export async function LaunchBrowserExecutorPlaywright(
 
         return true;
     } catch (error: any) {
+        console.error(error, "Launch Browser Error");
         environment.log.error(error?.message || "Failed to launch browser");
         return false;
     }
