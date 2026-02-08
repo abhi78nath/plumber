@@ -11,7 +11,7 @@ export async function ClickElementExecutor(
       environment.log.error('input->selector not defined');
     }
 
-    await environment.getPage()!.click(selector);
+    await (environment.getPage() as any)!.click(selector);
 
     return true;
   } catch (error: any) {

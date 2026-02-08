@@ -16,8 +16,8 @@ export async function WaitForElementExecutor(
       environment.log.error('input->visibility not defined');
     }
 
-    await environment
-      .getPage()!
+    await (environment
+      .getPage() as any)!
       .waitForSelector(selector, { visible: visibility === 'visible', hidden: visibility === 'hidden' });
     environment.log.info(`Element ${selector} became ${visibility}`);
 
