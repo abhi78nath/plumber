@@ -59,6 +59,7 @@ const TaskMenu = () => {
                         Result Delivery
                     </AccordionTrigger>
                     <AccordionContent className='flex flex-col gap-1'>
+                        <TaskMenuButton taskType={TaskType.WRITE_TO_GOOGLE_SHEET} />
                         <TaskMenuButton taskType={TaskType.DELIVER_VIA_WEBHOOK} />
                     </AccordionContent>
                 </AccordionItem>
