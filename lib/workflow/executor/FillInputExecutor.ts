@@ -17,7 +17,7 @@ export async function FillInputExecutor(
             environment.log.error("input->value not defined")
         }
 
-        await environment.getPage()!.type(selector, value)
+        await (environment.getPage() as any)!.type(selector, value)
         return true;
     } catch (error: any) {
         environment.log.error(error.message);

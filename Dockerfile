@@ -33,6 +33,9 @@ COPY prisma ./prisma
 
 RUN npm install
 
+# Install Playwright browsers and system dependencies
+RUN npx playwright install --with-deps chromium
+
 # Copy the rest of your code
 COPY . .
 

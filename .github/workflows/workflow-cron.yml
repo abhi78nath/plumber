@@ -1,0 +1,21 @@
+name: Trigger Cron Hub
+
+on:
+  schedule:
+    - cron: "*/1 * * * *" # Runs every 2 minutes
+  workflow_dispatch: # Allows manual triggering
+
+concurrency:
+  # Prevent overlapping cron executions
+  group: trigger-cron-hub
+  cancel-in-progress: true
+  
+jobs:
+  trigger-cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send trigger request
+        run: |
+          curl -X GET "${{ secrets.APP_URL }}/api/workflows/cron" \
+          -H "Authorization: Bearer ${{ secrets.API_SECRET }}" \
+          --fail-with-body

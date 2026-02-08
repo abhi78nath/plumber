@@ -1,5 +1,5 @@
 import { TaskType } from "@/types/task";
-import { LaunchBrowserExecutor } from "./LaunchBrowserExecutor";
+import { LaunchBrowserExecutorPlaywright } from "./LaunchBrowserExecutorPlaywright";
 import { PageToHtmlExecutor } from "./PageToHtmlExecutor";
 import { ExecutionEnvironment } from "@/types/executor";
 import { WorkflowTask } from "@/types/workflow";
@@ -14,13 +14,14 @@ import { ReadPropertyFromJsonExecutor } from "./ReadPropertyFromJsonExecutor";
 import { AddPropertyToJsonExecutor } from "./AddPropertyToJsonExecutor";
 import { NavigateUrlExecutor } from "./NavigateUrlExecutor";
 import { ScrollToElementExecutor } from "./ScrollToElementExecutor";
+import { WriteToGoogleSheetExecutor } from "./WriteToGoogleSheetExecutor";
 
 type ExecutorFn<T extends WorkflowTask> = (environment: ExecutionEnvironment<T>) => Promise<boolean>;
 type RegistryType = {
     [K in TaskType]: ExecutorFn<WorkflowTask & { type: K }>
 }
 export const ExecutorRegistry: RegistryType = {
-    LAUNCH_BROWSER: LaunchBrowserExecutor,
+    LAUNCH_BROWSER: LaunchBrowserExecutorPlaywright,
     PAGE_TO_HTML: PageToHtmlExecutor,
     EXTRACT_TEXT_FROM_ELEMENT: ExtractTextFromElementExecutor,
     FILL_INPUT: FillInputExecutor,
@@ -31,5 +32,6 @@ export const ExecutorRegistry: RegistryType = {
     READ_PROPERTY_FROM_JSON: ReadPropertyFromJsonExecutor,
     ADD_PROPERTY_TO_JSON: AddPropertyToJsonExecutor,
     NAVIGATE_URL: NavigateUrlExecutor,
-    SCROLL_TO_ELEMENT: ScrollToElementExecutor
+    SCROLL_TO_ELEMENT: ScrollToElementExecutor,
+    WRITE_TO_GOOGLE_SHEET: WriteToGoogleSheetExecutor
 }

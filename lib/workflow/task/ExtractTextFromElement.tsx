@@ -21,10 +21,10 @@ export const ExtractTextFromElementTask = {
             type: TaskParamType.STRING,
             required: true,
         }
-    ] as const, 
+    ] as const,
     outputs: [
         {
-            name: "Extracted text",
+            name: "Extracted data",
             type: TaskParamType.STRING
         }
     ] as const,

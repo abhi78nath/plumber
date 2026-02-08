@@ -11,7 +11,8 @@ import { ExecutorRegistry } from "./executor/registry";
 import { Environment, ExecutionEnvironment } from "@/types/executor";
 import { TaskParamType } from "@/types/task";
 import { Edge } from "@xyflow/react";
-import { Browser, Page } from "puppeteer";
+import { Browser as PuppeteerBrowser, Page as PuppeteerPage } from "puppeteer";
+import { Browser as PlaywrightBrowser, Page as PlaywrightPage } from "playwright";
 import { LogCollector } from "@/types/log";
 import { createLogCollector } from "../log";
 
@@ -253,10 +254,14 @@ function createExecutionEnvironment(
         },
 
         getBrowser: () => environment.browser,
-        setBrowser: (browser: Browser) => (environment.browser = browser),
+        setBrowser: (browser: PuppeteerBrowser | PlaywrightBrowser) => (environment.browser = browser),
 
         getPage: () => environment.page,
-        setPage: (page: Page) => (environment.page = page),
+        setPage: (page: PuppeteerPage | PlaywrightPage) => (environment.page = page),
+
+        set: (key: string, value: any) => {
+            (environment as any)[key] = value;
+        },
 
         log: logCollector,
     };
@@ -266,10 +271,16 @@ async function cleanUpEnvironment(environment: Environment) {
     if (environment.browser) {
         if (process.env.NODE_ENV !== 'production') {
             // close locally in dev
-            await environment.browser.close().catch((err) => console.error('Cannot close browser, reason:', err));
+            await environment.browser.close().catch((err: any) => console.error('Cannot close browser, reason:', err));
         } else {
             // disconnect to brightdata in prod
-            await environment.browser.disconnect().catch((err) => console.error('Cannot disconnect browser, reason:', err));
+            if ('disconnect' in environment.browser) {
+                // Puppeteer
+                await (environment.browser as PuppeteerBrowser).disconnect().catch((err: any) => console.error('Cannot disconnect browser, reason:', err));
+            } else {
+                // Playwright
+                await (environment.browser as PlaywrightBrowser).close().catch((err: any) => console.error('Cannot close browser, reason:', err));
+            }
         }
     }
 }
