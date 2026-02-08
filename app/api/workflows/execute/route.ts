@@ -29,6 +29,7 @@ export async function GET(request: Request) {
     const secret = authHeader.split(" ")[1];
 
     if (!isValidSecret(secret)) {
+        console.error("@@Unauthorized execution request - Invalid secret");
         return Response.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -52,12 +53,17 @@ export async function GET(request: Request) {
     ) as WorkflowExecutionPlan;
 
     if (!executionPlan) {
+        console.error(`@@No execution plan found for workflow ${workflowId}`);
         return Response.json({ error: "bad request" }, { status: 400 })
     }
 
+    console.log(`@@Starting execution for workflow ${workflowId}`);
+
     try {
         const cron = CronExpressionParser.parse(workflow.cron!);
+        console.log(`@@Workflow ${workflowId} cron parsed:`, workflow.cron);
         const nextRun = cron.next().toDate();
+        console.log(`@@Workflow ${workflowId} next run scheduled for:`, nextRun);
 
         const execution = await prisma.workflowExecution.create({
             data: {
@@ -83,7 +89,9 @@ export async function GET(request: Request) {
             },
         });
 
-        await ExecuteWorkflow(execution.id, nextRun);
+        ExecuteWorkflow(execution.id, nextRun).catch(err => {
+            console.error(`@@Error executing workflow ${workflowId} in background:`, err);
+        });
 
         return new Response(null, { status: 200 });
     } catch (error) {
