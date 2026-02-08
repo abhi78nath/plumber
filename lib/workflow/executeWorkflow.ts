@@ -34,6 +34,7 @@ export async function ExecuteWorkflow(executionId: string, nextRunAt?: Date) {
 
     const edges = JSON.parse(execution.definition).edges as Edge[];
     const environment = { phases: {} }
+    console.log(`@@Initializing workflow execution ${executionId}`);
     await initializeWorkflowExecution(executionId, execution.workflowId, nextRunAt)
     await initializePhaseStatuses(execution)
 
@@ -41,6 +42,7 @@ export async function ExecuteWorkflow(executionId: string, nextRunAt?: Date) {
     let executionFailed = false;
     let creditsConsumed = 0;
     for (const phase of execution.phases) {
+        console.log(`@@Executing phase ${phase.number} (${phase.name}) for execution ${executionId}`);
         const phaseExecution = await executeWorkflowPhase(phase, environment, edges, execution.userId);
 
         creditsConsumed += phaseExecution.creditsConsumed
@@ -51,6 +53,7 @@ export async function ExecuteWorkflow(executionId: string, nextRunAt?: Date) {
         }
     }
 
+    console.log(`@@Finalizing workflow execution ${executionId}, failed: ${executionFailed}`);
     await finalizeWorkflowExecution(executionId, execution.workflowId, executionFailed, creditsConsumed)
 
     await cleanUpEnvironment(environment)
