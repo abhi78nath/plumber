@@ -43,3 +43,7 @@ prisma/dev.db
 prisma/*.db
 prisma/*.db-journal
 
+# Service Account
+service-account.json
+
+
