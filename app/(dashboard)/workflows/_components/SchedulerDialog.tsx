@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import cronstrue from 'cronstrue';
+import { useRouter } from 'next/navigation';
 import parser, { CronExpressionParser } from 'cron-parser';
 import { CalendarIcon, ClockIcon, TriangleAlertIcon } from 'lucide-react';
 
@@ -16,11 +17,28 @@ import { cn } from '@/lib/utils';
 import CustomDialogHeader from '@/components/CustomDialogHeader';
 import { UpdateWorkflowCron } from '@/actions/workflows/updateWorkflowCron';
 import { RemoveWorkflowSchedule } from '@/actions/workflows/removeWorkflow';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
+const COMMON_SCHEDULES = [
+  { label: 'Every minute', value: '* * * * *' },
+  { label: 'Every 5 minutes', value: '*/5 * * * *' },
+  { label: 'Every 10 minutes', value: '*/10 * * * *' },
+  { label: 'Every 30 minutes', value: '*/30 * * * *' },
+  { label: 'Every hour', value: '0 * * * *' },
+  { label: 'Every day at midnight', value: '0 0 * * *' },
+];
 
 export default function SchedulerDialog(props: { workflowId: string; cron: string | null }) {
   const [cron, setCron] = useState(props.cron || '');
   const [validCron, setValidCron] = useState(false);
   const [readableCron, setReadableCron] = useState('');
+  const router = useRouter();
 
   const mutation = useMutation({
     mutationKey: ["update-workflow-cron"],
@@ -29,6 +47,7 @@ export default function SchedulerDialog(props: { workflowId: string; cron: strin
     },
     onSuccess: () => {
       toast.success('Schedule updated successfully', { id: 'cron' });
+      router.refresh();
     },
     onError: (error) => {
       console.error("CLIENT: Update Cron Mutation error:", error);
@@ -43,6 +62,7 @@ export default function SchedulerDialog(props: { workflowId: string; cron: strin
     },
     onSuccess: () => {
       toast.success('Schedule updated successfully', { id: 'cron' });
+      router.refresh();
     },
     onError: () => {
       toast.error('Something went wrong!', { id: 'cron' });
@@ -88,9 +108,40 @@ export default function SchedulerDialog(props: { workflowId: string; cron: strin
         <CustomDialogHeader title="Schedule workflow execution" icon={CalendarIcon} />
         <div className="p-6 space-y-4">
           <p className="text-muted-foreground text-sm">
-            Specify a cron expression to schedule periodic workflow execution. All times are in UTC
+            Specify a schedule for periodic workflow execution. All times are in UTC
           </p>
-          <Input placeholder="E.g. * * * * *" value={cron} onChange={(e) => setCron(e.target.value)} />
+
+          <Select
+            value={COMMON_SCHEDULES.find((s) => s.value === cron) ? cron : 'custom'}
+            onValueChange={(value) => {
+              if (value !== 'custom') {
+                setCron(value);
+              }
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select a schedule" />
+            </SelectTrigger>
+            <SelectContent>
+              {COMMON_SCHEDULES.map((schedule) => (
+                <SelectItem key={schedule.value} value={schedule.value}>
+                  {schedule.label}
+                </SelectItem>
+              ))}
+              <SelectItem value="custom">Custom (Cron Expression)</SelectItem>
+            </SelectContent>
+          </Select>
+
+          {(cron === '' || !COMMON_SCHEDULES.find((s) => s.value === cron)) && (
+            <div className="space-y-2 animate-in fade-in slide-in-from-top-1">
+              <p className="text-xs font-medium text-muted-foreground">Custom Cron Expression</p>
+              <Input
+                placeholder="E.g. * * * * *"
+                value={cron}
+                onChange={(e) => setCron(e.target.value)}
+              />
+            </div>
+          )}
 
           <div
             className={cn(
