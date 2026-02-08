@@ -5,6 +5,11 @@ on:
     - cron: "*/1 * * * *" # Runs every 2 minutes
   workflow_dispatch: # Allows manual triggering
 
+concurrency:
+  # Prevent overlapping cron executions
+  group: trigger-cron-hub
+  cancel-in-progress: true
+  
 jobs:
   trigger-cron:
     runs-on: ubuntu-latest
