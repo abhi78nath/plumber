@@ -36,7 +36,7 @@ const TaskMenu = () => {
                         <TaskMenuButton taskType={TaskType.EXTRACT_DATA_WITH_AI} />
                     </AccordionContent>
                 </AccordionItem>
-                <AccordionItem value='storage'>
+                {/* <AccordionItem value='storage'>
                     <AccordionTrigger className='font-bold'>
                         Data Storage
                     </AccordionTrigger>
@@ -44,7 +44,7 @@ const TaskMenu = () => {
                         <TaskMenuButton taskType={TaskType.READ_PROPERTY_FROM_JSON} />
                         <TaskMenuButton taskType={TaskType.ADD_PROPERTY_TO_JSON} />
                     </AccordionContent>
-                </AccordionItem>
+                </AccordionItem> */}
                 <AccordionItem value='timing'>
                     <AccordionTrigger className='font-bold'>
                         Timing controls
@@ -60,7 +60,7 @@ const TaskMenu = () => {
                     </AccordionTrigger>
                     <AccordionContent className='flex flex-col gap-1'>
                         <TaskMenuButton taskType={TaskType.WRITE_TO_GOOGLE_SHEET} />
-                        <TaskMenuButton taskType={TaskType.DELIVER_VIA_WEBHOOK} />
+                        {/* <TaskMenuButton taskType={TaskType.DELIVER_VIA_WEBHOOK} /> */}
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
