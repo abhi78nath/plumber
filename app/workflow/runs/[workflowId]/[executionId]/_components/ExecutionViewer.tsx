@@ -149,13 +149,13 @@ const ExecutionViewer = ({ execution: initialData }: { execution: ExecutionData 
                 {!isRunning && selectedPhase && phaseDetails.data && (
                     <div className="flex flex-col py-4 container gap-4 overflow-auto">
                         <div className="flex gap-2 items-center">
-                            <Badge variant="outline" className="space-x-4">
-                                {/* <div className="flex gap-1 items-center">
+                            {/* <Badge variant="outline" className="space-x-4">
+                                <div className="flex gap-1 items-center">
                                     <CoinsIcon size={18} className="stroke-muted-foreground" />
                                     <span>Credits</span>
-                                </div> */}
+                                </div>
                                 <span>{phaseDetails.data.creditsConsumed}</span>
-                            </Badge>
+                            </Badge> */}
                             <Badge variant="outline" className="space-x-4">
                                 <div className="flex gap-1 items-center">
                                     <ClockIcon size={18} className="stroke-muted-foreground" />
@@ -267,7 +267,7 @@ function ParameterViewer({
                                             {value as string}
                                         </SyntaxHighlighter>
                                     </div>
-                                ) : key === "Extracted data" ? (
+                                ) : (key === "Extracted data" || key === "Extracted output") ? (
                                     <Textarea readOnly value={value as string} className="min-h-[300px] font-mono" />
                                 ) : (
                                     <Input readOnly value={value as string} />
