@@ -29,7 +29,8 @@ export async function WriteToGoogleSheetExecutor(
         // Read credentials from local service-account.json
         let auth;
         try {
-            const serviceAccountPath = path.join(process.cwd(), 'service-account.json');
+            const serviceAccountPath =
+                process.env.SERVICE_ACCOUNT_PATH || path.join(process.cwd(), 'service-account.json');
             if (!fs.existsSync(serviceAccountPath)) {
                 environment.log.error('service-account.json not found in root directory');
                 return false;
