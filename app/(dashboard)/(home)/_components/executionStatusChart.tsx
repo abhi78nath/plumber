@@ -29,6 +29,7 @@ const chartConfig = {
 };
 
 export default function ExecutionStatusChart({ data }: { data: ChartData }) {
+  const hasFailures = data.some(d => d.failed > 0);
   return (
     <Card>
       <CardHeader>
@@ -40,8 +41,25 @@ export default function ExecutionStatusChart({ data }: { data: ChartData }) {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="max-h-[400px] w-full">
-          <AreaChart data={data} height={400} accessibilityLayer margin={{ top: 20 }}>
-            <CartesianGrid vertical={false} />
+          <AreaChart data={data} height={400} margin={{ top: 20 }}>
+            <defs>
+              <linearGradient id="successGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="var(--color-success)" stopOpacity={0.4} />
+                <stop offset="95%" stopColor="var(--color-success)" stopOpacity={0} />
+              </linearGradient>
+
+              <linearGradient id="failedGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="var(--color-failed)" stopOpacity={0.4} />
+                <stop offset="95%" stopColor="var(--color-failed)" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+
+            <CartesianGrid
+              strokeDasharray="3 3"
+              vertical={false}
+              stroke="#1e293b"
+            />
+
             <XAxis
               dataKey="date"
               tickLine={false}
@@ -50,28 +68,33 @@ export default function ExecutionStatusChart({ data }: { data: ChartData }) {
               minTickGap={32}
               tickFormatter={(value) => {
                 const date = new Date(value);
-                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                return date.toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                });
               }}
             />
+
             <ChartLegend content={<ChartLegendContent />} />
             <ChartTooltip content={<ChartTooltipContent className="w-[250px]" />} />
+
             <Area
-              min={0}
-              type="bump"
-              fillOpacity={0.6}
-              fill="var(--color-success)"
-              stroke="var(--color-success)"
+              type="monotone"
               dataKey="success"
+              stroke="var(--color-success)"
+              strokeWidth={2.5}
+              fill="url(#successGradient)"
+              connectNulls={false}
               stackId="a"
             />
             <Area
-              min={0}
-              type="bump"
-              fillOpacity={0.6}
-              fill="var(--color-failed)"
-              stroke="var(--color-failed)"
+              type="monotone"
               dataKey="failed"
-              stackId="a"
+              connectNulls={false}
+              stroke="var(--color-failed)"
+              strokeWidth={2.5}
+              fill="url(#failedGradient)"
+              stackId="b"
             />
           </AreaChart>
         </ChartContainer>
