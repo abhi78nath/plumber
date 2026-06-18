@@ -30,7 +30,7 @@ export async function LaunchBrowserExecutorPlaywright(
         page.setDefaultTimeout(60_000);
 
         await page.goto(websiteUrl, {
-            waitUntil: "networkidle",
+            waitUntil: "domcontentloaded",
         });
 
         environment.setBrowser(browser);
