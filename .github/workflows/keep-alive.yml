@@ -1,0 +1,19 @@
+name: Keep Render Alive
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Random ping
+        run: |
+          if [ $((RANDOM % 3)) -eq 0 ]; then
+            echo "Pinging..."
+            curl -L --silent --output /dev/null https://plumber-erx4.onrender.com/
+          else
+            echo "Skipping..."
+          fi
