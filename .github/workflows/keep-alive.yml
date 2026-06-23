@@ -1,20 +1,17 @@
 name: Keep Render Alive
-
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/7 * * * *"
   workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
-
     steps:
       - name: Random ping
         run: |
-          if [ $((RANDOM % 3)) -eq 0 ]; then
-            echo "Pinging..."
-            curl -L --silent --output /dev/null https://plumber-erx4.onrender.com/
-          else
-            echo "Skipping..."
-          fi
+          DELAY=$(( (RANDOM % 9) * 60 ))
+          echo "Waiting ${DELAY}s before ping..."
+          sleep $DELAY
+          echo "Pinging..."
+          curl -L --silent --output /dev/null https://plumber-erx4.onrender.com/
