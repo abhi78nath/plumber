@@ -14,4 +14,4 @@ jobs:
           echo "Waiting ${DELAY}s before ping..."
           sleep $DELAY
           echo "Pinging..."
-          curl -L --silent --output /dev/null https://plumber-erx4.onrender.com/
+          curl -L https://plumber-erx4.onrender.com/
